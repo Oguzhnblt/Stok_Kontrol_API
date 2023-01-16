@@ -24,5 +24,6 @@ namespace Stok_Kontrol_API.Service.Abstract
         bool Activate(int id); // Aktifleştirmek için kullancağımız metot.
         bool Any(Expression<Func<T, bool>> exp); // LINQ ifadesi ile var mı yok mu diye sorgulama yapacağımız metot.
         IQueryable<T> GetActive(params Expression<Func<T, object>>[] ex);
+        object? Remove(Category category);
     }
 }
