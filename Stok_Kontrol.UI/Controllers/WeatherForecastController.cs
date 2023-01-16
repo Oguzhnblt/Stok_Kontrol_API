@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Stok_Kontrol_API.Controllers
+namespace Stok_Kontrol.UI.Controllers
 {
     [ApiController]
     [Route("[controller]")]

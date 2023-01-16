@@ -1,4 +1,4 @@
-namespace Stok_Kontrol_API
+namespace Stok_Kontrol.UI
 {
     public class WeatherForecast
     {
