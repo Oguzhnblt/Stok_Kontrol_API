@@ -20,7 +20,7 @@ namespace Stok_Kontrol_API.Repositories.Abstract
         IQueryable<T> GetAll(params Expression<Func<T, object>>[] ex);
         bool Activate(int id); // Aktifleştirmek için kullancağımız metot.
         bool Any(Expression<Func<T, bool>> expression); // LINQ ifadesi ile var mı yok mu diye sorgulama yapacağımız metot.
-        int Save(); // DB'de manipülasyon işleminden sonra 1 veya daha fazla satır etkilendiğinde bize kaç satırın etkilendiğini döndürecek metot.
+        int Save(); // DB'de manipülasyon işleminden sonra 1 veya daha fazla satır etkilendiğinde bize kaç satırın etkilendiğini döndürecek metot..
         IQueryable<T> GetActive(params Expression<Func<T, object>>[] ex);
         void DetachEntity(T item);
     }
