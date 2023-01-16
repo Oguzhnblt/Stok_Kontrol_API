@@ -53,7 +53,7 @@ namespace Stok_Kontrol_API.Repositories.Concrete
             }
         }
 
-        public bool Any(Expression<Func<T, bool>> expression) => context.Set<T>().Any(expression);
+        public bool Any(Expression<Func<T, bool>> exp) => context.Set<T>().Any(exp);
 
         public List<T> GetActive() => context.Set<T>().Where(x => x.isActive == true).ToList();
         public IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes)

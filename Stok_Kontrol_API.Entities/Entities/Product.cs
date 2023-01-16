@@ -21,7 +21,7 @@ namespace Stok_Kontrol_API.Entities.Entities
         public int CategoryID { get; set; }
         public virtual Category Kategori { get; set; }
 
-        [ForeignKey("Tedarikçi")]
+        [ForeignKey("Tedarikci")]
         public string SupplierID { get; set; }
         public virtual Supplier Tedarikçi { get; set; }
 
