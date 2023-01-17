@@ -13,6 +13,7 @@ namespace Stok_Kontrol_API.Repositories.Abstract
         bool Add(List<T> item);
         bool Update(T item);
         bool Remove(int id);
+        bool Remove (T item);
         bool RemoveAll(Expression<Func<T, bool>> exp);
         List<T> GetDefault(Expression<Func<T, bool>> exp);
         List<T> GetActive();
