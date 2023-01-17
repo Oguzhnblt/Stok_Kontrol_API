@@ -64,7 +64,7 @@ namespace Stok_Kontrol_API.Service.Concrete
 
         public T GetByDefault(Expression<Func<T, bool>> exp)
         {
-            return GetByDefault(exp);
+            return repository.GetByDefault(exp);
         }
 
         public T GetByID(int id)
@@ -115,7 +115,7 @@ namespace Stok_Kontrol_API.Service.Concrete
                 return repository.Update(item);
             }
         }
-  
+
 
     }
 }

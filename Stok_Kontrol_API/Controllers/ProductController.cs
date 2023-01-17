@@ -13,63 +13,63 @@ namespace Stok_Kontrol_API.Controllers
 {
     [Route("api/[controller]/[action]")]
     [ApiController]
-    public class CategoryController : ControllerBase
+    public class ProductController : ControllerBase
     {
-        private readonly IGenericService<Category> service;
+        private readonly IGenericService<Product> service;
 
-        public CategoryController(IGenericService<Category> service)
+        public ProductController(IGenericService<Product> service)
         {
             this.service = service;
         }
 
-        // GET: api/Category
+        // GET: api/Product
         [HttpGet]
-        public IActionResult TumKategorileriGetir()
+        public IActionResult TumUrunleriGetir()
         {
             return Ok(service.GetAll());
         }
         [HttpGet]
-        public IActionResult AktifKategorileriGetir()
+        public IActionResult AktifUrunleriGetir()
         {
             return Ok(service.GetActive());
         }
 
-        // GET: api/Category/5
+        // GET: api/Product/5
         [HttpGet("{id}")]
-        public IActionResult IDyeGoreKategoriGetir(int id)
+        public IActionResult IDyeGoreUrunGetir(int id)
         {
             return Ok(service.GetByID(id));
 
         }
 
-        // PUT: api/Category/5
+        // PUT: api/Product/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public IActionResult KategoriEkle(Category category)
+        public IActionResult UrunEkle(Product product)
         {
-            service.Add(category);
-            return CreatedAtAction("IDyeGoreKategoriGetir", new { id = category.ID }, category);
+            service.Add(product);
+            return CreatedAtAction("IDyeGoreUrunGetir", new { id = product.ID }, product);
         }
 
-        // POST: api/Category
+        // POST: api/Product
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        public IActionResult KategoriGuncelle(int id, Category category)
+        public IActionResult UrunGuncelle(int id, Product product)
         {
-            if (id != category.ID)
+            if (id != product.ID)
             {
                 return BadRequest();
             }
 
             try
             {
-                service.Update(category);
-                return Ok(category);
+                service.Update(product);
+                return Ok(product);
             }
             catch (DbUpdateConcurrencyException)
             {
 
-                if (!CategoryExists(id))
+                if (!ProductExists(id))
                 {
                     return NotFound();
                 }
@@ -78,12 +78,12 @@ namespace Stok_Kontrol_API.Controllers
             return NoContent();
         }
 
-        // DELETE: api/Category/5
+        // DELETE: api/Product/5
         [HttpDelete("{id}")]
-        public IActionResult KategoriSil(int id)
+        public IActionResult UrunSil(int id)
         {
-            var category = service.GetByID(id);
-            if (category == null)
+            var product = service.GetByID(id);
+            if (product == null)
             {
                 return NotFound();
             }
@@ -91,8 +91,8 @@ namespace Stok_Kontrol_API.Controllers
 
             try
             {
-                service.Remove(category);
-                return Ok("Kategori silindi!");
+                service.Remove(product);
+                return Ok("Urun silindi!");
             }
             catch (Exception)
             {
@@ -101,16 +101,16 @@ namespace Stok_Kontrol_API.Controllers
             }
         }
 
-        private bool CategoryExists(int id)
+        private bool ProductExists(int id)
         {
             return service.Any(e => e.ID == id);
         }
 
         [HttpGet("{id}")]
-        public IActionResult KategoriAktifleştir(int id)
+        public IActionResult UrunAktifleştir(int id)
         {
-            var category = service.GetByID(id);
-            if (category == null)
+            var product = service.GetByID(id);
+            if (product == null)
             {
                 return NotFound();
             }
@@ -126,7 +126,8 @@ namespace Stok_Kontrol_API.Controllers
 
                 return BadRequest();
             }
-            return Ok("Kategori silindi!");
+
+            return Ok("Ürün silindi!");
 
         }
     }

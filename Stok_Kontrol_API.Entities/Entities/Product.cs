@@ -19,11 +19,11 @@ namespace Stok_Kontrol_API.Entities.Entities
 
         [ForeignKey("Kategori")]
         public int CategoryID { get; set; }
-        public virtual Category Kategori { get; set; }
+        public virtual Category? Kategori { get; set; }
 
         [ForeignKey("Tedarikci")]
         public string SupplierID { get; set; }
-        public virtual Supplier Tedarikçi { get; set; }
+        public virtual Supplier? Tedarikçi { get; set; }
 
         public virtual List<OrderDetails> SiparişDetayları { get; set; }
     }

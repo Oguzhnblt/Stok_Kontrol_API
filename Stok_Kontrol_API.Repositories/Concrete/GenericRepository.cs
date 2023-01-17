@@ -21,6 +21,7 @@ namespace Stok_Kontrol_API.Repositories.Concrete
         {
             try
             {
+                item.AddedDate = DateTime.Now;
                 context.Set<T>().Add(item);
                 return Save() > 0; // 1 satır etkileniyorsa true döndürsün
             }
@@ -35,16 +36,16 @@ namespace Stok_Kontrol_API.Repositories.Concrete
         {
             try
             {
-
-
                 using (TransactionScope ts = new TransactionScope())
                 {
-                    context.Set<T>().AddRange(items);
-
+                    foreach (T item in items)
+                    {
+                        item.AddedDate = DateTime.Now;
+                        context.Set<T>().Add(item);
+                    }
                     ts.Complete();  // Tüm işlemler başarılı olduğunda, yani tüm ekleme işlemleri başarılı olursa Complete() olacak.
                     return Save() > 0;  // Bir veya daha fazla satır etkileniyorsa..
                 }
-
             }
             catch (Exception)
             {
@@ -86,7 +87,7 @@ namespace Stok_Kontrol_API.Repositories.Concrete
         public bool Remove(T item)
         {
             item.isActive = false;
-            return Update(item);
+            return Remove(item);
         }
 
         public bool Remove(int id)
@@ -99,7 +100,7 @@ namespace Stok_Kontrol_API.Repositories.Concrete
                     item.isActive = false;
                     ts.Complete();
 
-                    return Update(item);
+                    return Remove(item);
                 }
 
             }
@@ -121,7 +122,7 @@ namespace Stok_Kontrol_API.Repositories.Concrete
                     foreach (var item in collection)
                     {
                         item.isActive = false;
-                        bool operationResult = Update(item); // DB'den silmiyoruz. Durumunu silindi olarak ayarlıyoruz ve bunu da update metodu ile gerçekleştiriyoruz.
+                        bool operationResult = RemoveAll(expression); // DB'den silmiyoruz. Durumunu silindi olarak ayarlıyoruz ve bunu da update metodu ile gerçekleştiriyoruz.
 
                         if (operationResult)
                         {
@@ -153,6 +154,7 @@ namespace Stok_Kontrol_API.Repositories.Concrete
         {
             try
             {
+                item.ModifiedDate = DateTime.Now;
                 context.Set<T>().Update(item);
                 return Save() > 0;
             }
@@ -165,7 +167,7 @@ namespace Stok_Kontrol_API.Repositories.Concrete
         public bool Activate(int id)
         {
             T item = GetByID(id);
-            item.isActive = false;
+            item.isActive = true;
             return Update(item);
         }
 
