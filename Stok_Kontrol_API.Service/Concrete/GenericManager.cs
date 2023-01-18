@@ -1,6 +1,6 @@
 ﻿using Stok_Kontrol_API.Entities.Entities;
-using Stok_Kontrol_API.Repositories.Abstract;
 using Stok_Kontrol_API.Service.Abstract;
+using StokKontrolProject.Repositories.Abstract;
 using System.Linq.Expressions;
 
 namespace Stok_Kontrol_API.Service.Concrete
@@ -33,13 +33,14 @@ namespace Stok_Kontrol_API.Service.Concrete
         public bool Add(List<T> items)
         {
             return repository.Add(items);
+
         }
 
         public bool Any(Expression<Func<T, bool>> exp)
         {
             return repository.Any(exp);
-        }
 
+        }
 
 
         public List<T> GetActive()
@@ -47,9 +48,9 @@ namespace Stok_Kontrol_API.Service.Concrete
             return repository.GetActive();
         }
 
-        public IQueryable<T> GetActive(params Expression<Func<T, object>>[] exp)
+        public IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes)
         {
-            return repository.GetActive(exp);
+            return repository.GetActive(includes);
         }
 
         public List<T> GetAll()
@@ -57,9 +58,9 @@ namespace Stok_Kontrol_API.Service.Concrete
             return repository.GetAll();
         }
 
-        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] exp)
+        public IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes)
         {
-            return repository.GetAll(exp);
+            return repository.GetAll(includes);
         }
 
         public T GetByDefault(Expression<Func<T, bool>> exp)
@@ -76,6 +77,7 @@ namespace Stok_Kontrol_API.Service.Concrete
         {
             return repository.GetDefault(exp);
         }
+
         public bool Remove(T item)
         {
             if (item == null)
@@ -87,6 +89,7 @@ namespace Stok_Kontrol_API.Service.Concrete
                 return repository.Remove(item);
             }
         }
+
         public bool Remove(int id)
         {
             if (id <= 0)
@@ -103,9 +106,11 @@ namespace Stok_Kontrol_API.Service.Concrete
         {
             return repository.RemoveAll(exp);
         }
+
+
+
         public bool Update(T item)
         {
-
             if (item == null)
             {
                 return false;
@@ -115,7 +120,6 @@ namespace Stok_Kontrol_API.Service.Concrete
                 return repository.Update(item);
             }
         }
-
 
     }
 }

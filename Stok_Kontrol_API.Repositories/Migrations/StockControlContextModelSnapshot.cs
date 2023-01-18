@@ -151,11 +151,7 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                     b.Property<short?>("Stock")
                         .HasColumnType("smallint");
 
-                    b.Property<string>("SupplierID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("TedarikçiID")
+                    b.Property<int>("SupplierID")
                         .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
@@ -168,7 +164,7 @@ namespace Stok_Kontrol_API.Repositories.Migrations
 
                     b.HasIndex("CategoryID");
 
-                    b.HasIndex("TedarikçiID");
+                    b.HasIndex("SupplierID");
 
                     b.ToTable("Products");
                 });
@@ -285,7 +281,7 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                         .IsRequired();
 
                     b.HasOne("Stok_Kontrol_API.Entities.Entities.Product", "Ürün")
-                        .WithMany("SiparişDetayları")
+                        .WithMany("SiparisDetayları")
                         .HasForeignKey("ProductID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -303,13 +299,15 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Stok_Kontrol_API.Entities.Entities.Supplier", "Tedarikçi")
+                    b.HasOne("Stok_Kontrol_API.Entities.Entities.Supplier", "Tedarikci")
                         .WithMany("Urunler")
-                        .HasForeignKey("TedarikçiID");
+                        .HasForeignKey("SupplierID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Kategori");
 
-                    b.Navigation("Tedarikçi");
+                    b.Navigation("Tedarikci");
                 });
 
             modelBuilder.Entity("Stok_Kontrol_API.Entities.Entities.Category", b =>
@@ -324,7 +322,7 @@ namespace Stok_Kontrol_API.Repositories.Migrations
 
             modelBuilder.Entity("Stok_Kontrol_API.Entities.Entities.Product", b =>
                 {
-                    b.Navigation("SiparişDetayları");
+                    b.Navigation("SiparisDetayları");
                 });
 
             modelBuilder.Entity("Stok_Kontrol_API.Entities.Entities.Supplier", b =>

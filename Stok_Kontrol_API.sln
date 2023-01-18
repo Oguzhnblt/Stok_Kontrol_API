@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stok_Kontrol_API.Service", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stok_Kontrol_API.Repositories", "Stok_Kontrol_API.Repositories\Stok_Kontrol_API.Repositories.csproj", "{6F810795-943B-41D6-8EDB-8F8E4AE744FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stok_Kontrol_API.WebUI", "Stok_Kontrol_API.WebUI\Stok_Kontrol_API.WebUI.csproj", "{A71FC35F-85F8-4775-A9A3-3B591880BA05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stok_Kontrol_API.WebUI", "Stok_Kontrol_API.WebUI\Stok_Kontrol_API.WebUI.csproj", "{A71FC35F-85F8-4775-A9A3-3B591880BA05}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

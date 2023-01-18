@@ -45,7 +45,7 @@ namespace Stok_Kontrol_API.Controllers
         }
 
         // POST: api/Supplier
-        [HttpPut]
+        [HttpPost("{id}")]
         public IActionResult TedarikciGuncelle(int id, Supplier supplier)
         {
             if (id != supplier.ID)
@@ -120,7 +120,6 @@ namespace Stok_Kontrol_API.Controllers
                 return BadRequest();
             }
 
-            return Ok("Tedarikçi silindi!");
 
         }
     }

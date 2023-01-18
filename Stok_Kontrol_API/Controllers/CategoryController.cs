@@ -15,110 +15,113 @@ namespace Stok_Kontrol_API.Controllers
     [ApiController]
     public class CategoryController : ControllerBase
     {
-        private readonly IGenericService<Category> service;
+        private readonly IGenericService<Category> _service;
 
         public CategoryController(IGenericService<Category> service)
         {
-            this.service = service;
+            _service = service;
         }
 
-        // GET: api/Category
+        // GET: api/Category/TumKategorileriGetir
         [HttpGet]
         public IActionResult TumKategorileriGetir()
         {
-            return Ok(service.GetAll());
+            return Ok(_service.GetAll());
         }
+
+        // GET: api/Category/AktifKategorileriGetir/5
         [HttpGet]
         public IActionResult AktifKategorileriGetir()
         {
-            return Ok(service.GetActive());
+            return Ok(_service.GetActive());
         }
 
-        // GET: api/Category/5
         [HttpGet("{id}")]
         public IActionResult IDyeGoreKategoriGetir(int id)
         {
-            return Ok(service.GetByID(id));
-
+            return Ok(_service.GetByID(id));
         }
-
-        // PUT: api/Category/5
+        // POST: api/Category/KategoriEkle
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public IActionResult KategoriEkle(Category category)
         {
-            service.Add(category);
+            _service.Add(category);
+
             return CreatedAtAction("IDyeGoreKategoriGetir", new { id = category.ID }, category);
         }
 
-        // POST: api/Category
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut]
-        public IActionResult KategoriGuncelle(int id, Category category)
+        // PUT: api/Category/KategorileriGuncelle/5
+        [HttpPost("{id}")]
+        public IActionResult KategorileriGuncelle(int id, Category category)
         {
             if (id != category.ID)
             {
                 return BadRequest();
             }
 
+            //_service.Entry(category).State = EntityState.Modified;
+
             try
             {
-                service.Update(category);
+                _service.Update(category);
                 return Ok(category);
             }
             catch (DbUpdateConcurrencyException)
             {
-
                 if (!CategoryExists(id))
                 {
                     return NotFound();
                 }
 
             }
+
             return NoContent();
         }
 
-        // DELETE: api/Category/5
+
+
+        // DELETE: api/Category/KategoriSil/5
         [HttpDelete("{id}")]
         public IActionResult KategoriSil(int id)
         {
-            var category = service.GetByID(id);
+            var category = _service.GetByID(id);
             if (category == null)
             {
                 return NotFound();
             }
-
-
             try
             {
-                service.Remove(category);
-                return Ok("Kategori silindi!");
+                _service.Remove(category);
+                return Ok("Kategori Silindi!");
             }
             catch (Exception)
             {
 
                 return BadRequest();
             }
+
         }
+
 
         private bool CategoryExists(int id)
         {
-            return service.Any(e => e.ID == id);
+            return _service.Any(e => e.ID == id);
         }
 
+
         [HttpGet("{id}")]
-        public IActionResult KategoriAktifleştir(int id)
+        public IActionResult KategoriAktiflestir(int id)
         {
-            var category = service.GetByID(id);
+            var category = _service.GetByID(id);
             if (category == null)
             {
                 return NotFound();
             }
-
             try
             {
-                service.Activate(id);
-                return Ok(service.GetByID(id));
+                _service.Activate(id);
+                return Ok(_service.GetByID(id));
 
             }
             catch (Exception)
@@ -126,7 +129,7 @@ namespace Stok_Kontrol_API.Controllers
 
                 return BadRequest();
             }
-            return Ok("Kategori silindi!");
+
 
         }
     }

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Stok_Kontrol_API.Repositories.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -55,10 +55,10 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Photo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     isActive = table.Column<bool>(type: "bit", nullable: false),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -79,8 +79,7 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                     Stock = table.Column<short>(type: "smallint", nullable: true),
                     ExpireDate = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CategoryID = table.Column<int>(type: "int", nullable: false),
-                    SupplierID = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TedarikçiID = table.Column<int>(type: "int", nullable: false),
+                    SupplierID = table.Column<int>(type: "int", nullable: false),
                     isActive = table.Column<bool>(type: "bit", nullable: false),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -95,8 +94,8 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Products_Suppliers_TedarikçiID",
-                        column: x => x.TedarikçiID,
+                        name: "FK_Products_Suppliers_SupplierID",
+                        column: x => x.SupplierID,
                         principalTable: "Suppliers",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -109,6 +108,7 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserID = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     isActive = table.Column<bool>(type: "bit", nullable: false),
                     AddedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -176,9 +176,9 @@ namespace Stok_Kontrol_API.Repositories.Migrations
                 column: "CategoryID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Products_TedarikçiID",
+                name: "IX_Products_SupplierID",
                 table: "Products",
-                column: "TedarikçiID");
+                column: "SupplierID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

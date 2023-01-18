@@ -1,10 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using Stok_Kontrol_API.Repositories.Abstract;
 using Stok_Kontrol_API.Repositories.Concrete;
 using Stok_Kontrol_API.Repositories.Context;
 using Stok_Kontrol_API.Service.Abstract;
 using Stok_Kontrol_API.Service.Concrete;
+using StokKontrolProject.Repositories.Abstract;
 
 var builder = WebApplication.CreateBuilder(args);
 

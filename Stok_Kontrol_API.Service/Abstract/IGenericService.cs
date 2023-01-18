@@ -7,19 +7,18 @@ namespace Stok_Kontrol_API.Service.Abstract
         bool Add(T item);
         bool Add(List<T> items);
         bool Update(T item);
-        bool Remove(int id);
         bool Remove(T item);
-
+        bool Remove(int id);
         bool RemoveAll(Expression<Func<T, bool>> exp);
-        List<T> GetDefault(Expression<Func<T, bool>> exp);
-        List<T> GetActive();
-        List<T> GetAll();
-        T GetByDefault(Expression<Func<T, bool>> exp);
         T GetByID(int id);
-        IQueryable<T> GetAll(params Expression<Func<T, object>>[] exp);
-        IQueryable<T> GetActive(params Expression<Func<T, object>>[] exp);
-        bool Activate(int id); // Aktifleştirmek için kullancağımız metot.
-        bool Any(Expression<Func<T, bool>> exp); // LINQ ifadesi ile var mı yok mu diye sorgulama yapacağımız metot.
-        
+        T GetByDefault(Expression<Func<T, bool>> exp);
+        List<T> GetActive();
+        IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes);
+        List<T> GetDefault(Expression<Func<T, bool>> exp);
+        List<T> GetAll();
+        IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes);
+        bool Activate(int id); // Aktifleştirmek için kullanılacak metot.
+        bool Any(Expression<Func<T, bool>> exp); // LINQ ifadesi ile var mı diye sorgulama yapacağımız metot.
+
     }
 }

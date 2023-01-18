@@ -26,12 +26,12 @@ namespace Stok_Kontrol_API.Controllers
         [HttpGet]
         public IActionResult TumUrunleriGetir()
         {
-            return Ok(service.GetAll());
+            return Ok(service.GetAll(t0 => t0.Kategori, t1 => t1.Tedarikci));
         }
         [HttpGet]
         public IActionResult AktifUrunleriGetir()
         {
-            return Ok(service.GetActive());
+            return Ok(service.GetActive(t0 => t0.Kategori, t1 => t1.Tedarikci));
         }
 
         // GET: api/Product/5
@@ -53,7 +53,7 @@ namespace Stok_Kontrol_API.Controllers
 
         // POST: api/Product
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut]
+        [HttpPost("{id}")]
         public IActionResult UrunGuncelle(int id, Product product)
         {
             if (id != product.ID)
@@ -127,7 +127,6 @@ namespace Stok_Kontrol_API.Controllers
                 return BadRequest();
             }
 
-            return Ok("Ürün silindi!");
 
         }
     }

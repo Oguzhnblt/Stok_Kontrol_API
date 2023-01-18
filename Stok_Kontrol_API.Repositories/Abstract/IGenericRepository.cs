@@ -1,30 +1,32 @@
-﻿using System;
+﻿using Stok_Kontrol_API.Entities.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stok_Kontrol_API.Repositories.Abstract
+namespace StokKontrolProject.Repositories.Abstract
 {
-    public interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : BaseEntity
     {
         bool Add(T item);
-        bool Add(List<T> item);
+        bool Add(List<T> items);
         bool Update(T item);
+        bool Remove(T item);
         bool Remove(int id);
-        bool Remove (T item);
         bool RemoveAll(Expression<Func<T, bool>> exp);
-        List<T> GetDefault(Expression<Func<T, bool>> exp);
-        List<T> GetActive();
-        List<T> GetAll();
-        T GetByDefault(Expression<Func<T, bool>> exp);
         T GetByID(int id);
-        IQueryable<T> GetAll(params Expression<Func<T, object>>[] ex);
-        bool Activate(int id); // Aktifleştirmek için kullancağımız metot.
-        bool Any(Expression<Func<T, bool>> exp); // LINQ ifadesi ile var mı yok mu diye sorgulama yapacağımız metot.
-        int Save(); // DB'de manipülasyon işleminden sonra 1 veya daha fazla satır etkilendiğinde bize kaç satırın etkilendiğini döndürecek metot..
-        IQueryable<T> GetActive(params Expression<Func<T, object>>[] ex);
+        T GetByDefault(Expression<Func<T, bool>> exp);
+        List<T> GetActive();
+        IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes);
+        List<T> GetDefault(Expression<Func<T, bool>> exp);
+        List<T> GetAll();
+        IQueryable<T> GetAll(params Expression<Func<T, object>>[] includes);
+        bool Activate(int id); // Aktifleştirmek için kullanılacak metot.
+        bool Any(Expression<Func<T, bool>> exp); // LINQ ifadesi ile var mı diye sorgulama yapacağımız metot.
+        int Save();// DB' de manipülasyon işleminden sonra 1 veya daha fazla satır etkilediğinde bize kaç satırın etkilendiğini döndürecek metodumuz.
+
         void DetachEntity(T item);
     }
 }
