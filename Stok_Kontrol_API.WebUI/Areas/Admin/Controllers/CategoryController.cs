@@ -71,7 +71,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(category), Encoding.UTF8, "application/json");
 
-                using (var cevap = await httpClient.PutAsync($"{uri}/api/Category/KategoriEkle", content))
+                using (var cevap = await httpClient.PostAsync($"{uri}/api/Category/KategoriEkle", content))
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
 
@@ -91,14 +91,17 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         {
 
             // List<Category> categories = new List<Category>();  // Tek bir tane kategori güncelleneceği için List olarak tutmaya gerek yok.
-
-            using (var httpClient = new HttpClient())
+            if (ModelState.IsValid)
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Category/IDyeGoreKategoriGetir/{id}"))
-                {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
-                    updatedCategory = JsonConvert.DeserializeObject<Category>(apiCevap);
 
+                using (var httpClient = new HttpClient())
+                {
+                    using (var cevap = await httpClient.GetAsync($"{uri}/api/Category/IDyeGoreKategoriGetir/{id}"))
+                    {
+                        string apiCevap = await cevap.Content.ReadAsStringAsync();
+                        updatedCategory = JsonConvert.DeserializeObject<Category>(apiCevap);
+
+                    }
                 }
             }
             return View(updatedCategory); // Update edilecek kategoriyi güncelleme View'ına gösterecek.
@@ -108,22 +111,26 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> KategoriGuncelle(Category currentCategory) // Güncellenmiş kategori parametre olarak alınır.
         {
 
-            // List<Category> categories = new List<Category>();  // Tek bir tane kategori güncelleneceği için List olarak tutmaya gerek yok.
-
-
-            using (var httpClient = new HttpClient())
+            if (ModelState.IsValid)
             {
-                currentCategory.isActive = true;
-                currentCategory.AddedDate = DateTime.Now;
+                // List<Category> categories = new List<Category>();  // Tek bir tane kategori güncelleneceği için List olarak tutmaya gerek yok.
 
-                StringContent content = new StringContent(JsonConvert.SerializeObject(currentCategory), Encoding.UTF8, "application/json");
 
-                using (var cevap = await httpClient.PutAsync($"{uri}/api/Category/KategoriGuncelle/{currentCategory.ID}", content))
+                using (var httpClient = new HttpClient())
                 {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
+                    currentCategory.isActive = true;
+                    currentCategory.AddedDate = DateTime.Now;
+
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(currentCategory), Encoding.UTF8, "application/json");
+
+                    using (var cevap = await httpClient.PutAsync($"{uri}/api/Category/KategoriGuncelle/{currentCategory.ID}", content))
+                    {
+                        string apiCevap = await cevap.Content.ReadAsStringAsync();
+                    }
                 }
             }
             return RedirectToAction("Index");
+            
         }
     }
 }

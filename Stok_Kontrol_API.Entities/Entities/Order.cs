@@ -12,12 +12,15 @@ namespace Stok_Kontrol_API.Entities.Entities
     {
         public Order()
         {
-            SiparişDetayları = new List<OrderDetails>();
+            SiparisDetayları = new List<OrderDetails>();
         }
         [ForeignKey("Kullanıcı")]
         public int UserID { get; set; }
-        public Status Status { get; set; }  
+        public Status Status { get; set; }
+
+
+        // Navigation Properties
         public virtual User Kullanıcı { get; set; }
-        public virtual List<OrderDetails> SiparişDetayları { get; set; }
+        public virtual List<OrderDetails> SiparisDetayları { get; set; }
     }
 }

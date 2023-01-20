@@ -46,14 +46,17 @@ namespace Stok_Kontrol_API.Controllers
         [HttpPost]
         public IActionResult KategoriEkle(Category category)
         {
+            List<Category> aktifKategoriler = new List<Category>();
+            List<Supplier> aktifTedarikciler = new List<Supplier>();
+
             _service.Add(category);
 
             return CreatedAtAction("IDyeGoreKategoriGetir", new { id = category.ID }, category);
         }
 
         // PUT: api/Category/KategorileriGuncelle/5
-        [HttpPost("{id}")]
-        public IActionResult KategorileriGuncelle(int id, Category category)
+        [HttpPut("{id}")]
+        public IActionResult KategoriGuncelle(int id, Category category)
         {
             if (id != category.ID)
             {

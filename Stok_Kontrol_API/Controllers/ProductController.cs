@@ -53,7 +53,7 @@ namespace Stok_Kontrol_API.Controllers
 
         // POST: api/Product
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public IActionResult UrunGuncelle(int id, Product product)
         {
             if (id != product.ID)
@@ -107,7 +107,7 @@ namespace Stok_Kontrol_API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult UrunAktifleştir(int id)
+        public IActionResult UrunAktiflestir(int id)
         {
             var product = service.GetByID(id);
             if (product == null)

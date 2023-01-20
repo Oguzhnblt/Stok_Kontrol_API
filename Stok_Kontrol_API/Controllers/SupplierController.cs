@@ -45,7 +45,7 @@ namespace Stok_Kontrol_API.Controllers
         }
 
         // POST: api/Supplier
-        [HttpPost("{id}")]
+        [HttpPut("{id}")]
         public IActionResult TedarikciGuncelle(int id, Supplier supplier)
         {
             if (id != supplier.ID)
@@ -100,7 +100,7 @@ namespace Stok_Kontrol_API.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult TedarikciAktifleştir(int id)
+        public IActionResult TedarikciAktiflestir(int id)
         {
             var Supplier = service.GetByID(id);
             if (Supplier == null)

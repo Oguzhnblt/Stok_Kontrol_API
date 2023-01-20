@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Stok_Kontrol_API.Repositories.Concrete;
 using Stok_Kontrol_API.Repositories.Context;
@@ -14,6 +15,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(option =>
 {
     option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
 });
+
+builder.Services.AddControllers().AddRazorRuntimeCompilation();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

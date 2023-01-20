@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Stok_Kontrol_API.Entities.Entities;
+using Stok_Kontrol_API.Entities.Enums;
 using System.Text;
 
 namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 {
     [Area("Admin")]
 
-    public class ProductController : Controller
+    public class OrderController : Controller
     {
 
         string uri = "https://localhost:7233";
@@ -15,62 +16,38 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Product> Products = new List<Product>();
+            List<Order> Orders = new List<Order>();
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Product/TumUrunleriGetir"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/TumSiparisleriGetir"))
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
 
-                    Products = JsonConvert.DeserializeObject<List<Product>>(apiCevap);
+                    Orders = JsonConvert.DeserializeObject<List<Order>>(apiCevap);
                 }
             }
-            return View(Products);
+            return View(Orders);
         }
+
+
 
 
         [HttpGet]
-        public async Task<IActionResult> UrunAktifleştir(int id)
+        public async Task<IActionResult> SiparisEkle()
         {
-            using (var httpClient = new HttpClient())
-            {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Product/UrunAktifleştir/{id}"))
-                {
 
-                }
-            }
-            return RedirectToAction("Index");
-        }
-
-
-
-        public async Task<IActionResult> UrunSil(int id)
-        {
-            using (var httpClient = new HttpClient())
-            {
-                using (var cevap = await httpClient.DeleteAsync($"{uri}/api/Product/UrunSil/{id}"))
-                {
-
-                }
-            }
-            return RedirectToAction("Index");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> UrunEkle()
-        {
             List<Category> aktifKategoriler = new List<Category>();
             List<Supplier> aktifTedarikciler = new List<Supplier>();
 
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Product/AktifKategorileriGetir"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/AktifKullaniciGetir"))
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
                     aktifKategoriler = JsonConvert.DeserializeObject<List<Category>>(apiCevap);
                 }
 
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Product/AktifTedarikcileriGetir"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/AktifTedarikcileriGetir"))
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
                     aktifTedarikciler = JsonConvert.DeserializeObject<List<Supplier>>(apiCevap);
@@ -86,15 +63,22 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UrunEkle(Product Product)
+        public async Task<IActionResult> SiparisEkle(Order order)
         {
-            Product.isActive = true;
+
+            Order receivedOrder = new Order();
 
             using (var httpClient = new HttpClient())
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(Product), Encoding.UTF8, "application/json");
+                var comtents = new MultipartFormDataContent
+                {
+                    { new StringContent(order.UserID.ToString()), "Id" },
+                    { new StringContent(order.SiparisDetayları.ToString()) ,"Sipariş Detayları" },
+                    { new StringContent(order.Kullanıcı.ID.ToString()), "Id" },
+                    { new StringContent(order.Kullanıcı.ID.ToString()), "Id" }
+                };
 
-                using (var cevap = await httpClient.PutAsync($"{uri}/api/Product/UrunEkle", content))
+                using (var cevap = await httpClient.PutAsync($"{uri}/api/Order/SiparisEkle", comtents))
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
 
@@ -102,51 +86,35 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
-
-
-
-
-        static Product updatedProduct = new Product();
-        // İLgili Urunyi güncelleme işleminin devamındaki (put) kullanacağımız için o metottan da ulaşabilmek adına globalde tanımlayalım.
 
         [HttpGet]
-        public async Task<IActionResult> UrunGuncelle(int id)
+        public async Task<IActionResult> SiparisOnayla(int id)
         {
-
-            // List<Product> categories = new List<Product>();  // Tek bir tane Urun güncelleneceği için List olarak tutmaya gerek yok.
-
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Product/IDyeGoreUrunGetir/{id}"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/SiparisOnayla/{id}"))
                 {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
-                    updatedProduct = JsonConvert.DeserializeObject<Product>(apiCevap);
 
-                }
-            }
-            return View(updatedProduct); // Update edilecek Urunyi güncelleme View'ına gösterecek.
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UrunGuncelle(Product currentProduct) // Güncellenmiş Urun parametre olarak alınır.
-        {
-
-            // List<Product> categories = new List<Product>();  // Tek bir tane Urun güncelleneceği için List olarak tutmaya gerek yok.
-
-
-            using (var httpClient = new HttpClient())
-            {
-                currentProduct.isActive = true;
-                currentProduct.AddedDate = DateTime.Now;
-
-                StringContent content = new StringContent(JsonConvert.SerializeObject(currentProduct), Encoding.UTF8, "application/json");
-
-                using (var cevap = await httpClient.PutAsync($"{uri}/api/Product/UrunGuncelle/{currentProduct.ID}", content))
-                {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
                 }
             }
             return RedirectToAction("Index");
         }
+
+
+
+        public async Task<IActionResult> SiparisReddet(int id)
+        {
+            using (var httpClient = new HttpClient())
+            {
+                using (var cevap = await httpClient.DeleteAsync($"{uri}/api/Order/SiparisReddet/{id}"))
+                {
+
+                }
+            }
+            return RedirectToAction("Index");
+        }
+
+
+
     }
 }

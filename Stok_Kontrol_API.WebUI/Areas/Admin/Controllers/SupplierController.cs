@@ -30,11 +30,11 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> TedarikciAktifleştir(int id)
+        public async Task<IActionResult> TedarikciAktiflestir(int id)
         {
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Supplier/TedarikciAktifleştir/{id}"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Supplier/TedarikciAktiflestir/{id}"))
                 {
 
                 }
@@ -65,17 +65,20 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> TedarikciEkle(Supplier supplier)
         {
-            supplier.isActive = true;
-
-            using (var httpClient = new HttpClient())
+            if (ModelState.IsValid)
             {
-                StringContent content = new StringContent(JsonConvert.SerializeObject(supplier), Encoding.UTF8, "application/json");
+                supplier.isActive = true;
 
-                using (var cevap = await httpClient.PutAsync($"{uri}/api/Supplier/TedarikciEkle", content))
+                using (var httpClient = new HttpClient())
                 {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
+                    StringContent content = new StringContent(JsonConvert.SerializeObject(supplier), Encoding.UTF8, "application/json");
 
-                }
+                    using (var cevap = await httpClient.PostAsync($"{uri}/api/Supplier/TedarikciEkle", content))
+                    {
+                        string apiCevap = await cevap.Content.ReadAsStringAsync();
+
+                    }
+                } 
             }
             return RedirectToAction("Index");
         }
