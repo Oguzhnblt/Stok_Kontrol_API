@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "KullaniciEkle";
+}
+@model User
+
+<div class="row">
+    <div class="offset-3 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Kullanıcı Ekle</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+
+                        <form asp-area="Admin" asp-controller="User" asp-action="KullaniciEkle" method="post" novalidate="novalidate">
+
+                            <div class="form-group">
+                                <label asp-for="FirstName" class="control-label mb-1">Adı</label>
+                                <input asp-for="FirstName" type="text" class="form-control">
+
+                                <label asp-for="LastName" class="control-label mb-1">Soyadı</label>
+                                <input asp-for="LastName" type="text" class="form-control">
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="Email" class="control-label mb-1">Email</label>
+                                <input asp-for="Email" type="text" class="form-control">
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="Phone" class="control-label mb-1">Telefon</label>
+                                <input asp-for="Phone" type="text" class="form-control">
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="Address" class="control-label mb-1">Adres</label>
+                                <input asp-for="Address" type="text" class="form-control">
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="Password" class="control-label mb-1">Şifre</label>
+                                <input asp-for="Password" type="password" class="form-control">
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="Role" class="control-label mb-1">Kategori</label>
+                                <select asp-for="Role" asp-items="@Html.GetEnumSelectList(typeof(Role))" class="form-control">
+                                    <option>
+                                        Lütfen Rolü Seçiniz..
+                                    </option>
+                                </select>
+
+
+
+                            </div>
+
+
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;
+                                    <span id="payment-button-amount">Tedarikci Ekle</span>
+                                    <span id="payment-button-sending" style="display:none;">Ekleniyor…</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div>
+
+</div>

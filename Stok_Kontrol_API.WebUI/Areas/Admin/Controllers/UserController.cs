@@ -15,7 +15,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<User> categories = new List<User>();
+            List<User> users = new List<User>();
 
             using (var httpClient = new HttpClient())
             {
@@ -23,19 +23,19 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
 
-                    categories = JsonConvert.DeserializeObject<List<User>>(apiCevap);
+                    users = JsonConvert.DeserializeObject<List<User>>(apiCevap);
                 }
             }
-            return View(categories);
+            return View(users);
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> KullaniciAktifleştir(int id)
+        public async Task<IActionResult> KullaniciAktiflestir(int id)
         {
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/User/KullaniciAktifleştir/{id}"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/User/KullaniciAktiflestir/{id}"))
                 {
 
                 }
@@ -72,7 +72,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
             {
                 StringContent content = new StringContent(JsonConvert.SerializeObject(User), Encoding.UTF8, "application/json");
 
-                using (var cevap = await httpClient.PutAsync($"{uri}/api/User/KullaniciEkle", content))
+                using (var cevap = await httpClient.PostAsync($"{uri}/api/User/KullaniciEkle", content))
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
 
@@ -91,7 +91,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> KullaniciGuncelle(int id)
         {
 
-            // List<User> categories = new List<User>();  // Tek bir tane Kullanici güncelleneceği için List olarak tutmaya gerek yok.
+            // List<User> users = new List<User>();  // Tek bir tane Kullanici güncelleneceği için List olarak tutmaya gerek yok.
             if (ModelState.IsValid)
             {
 
@@ -114,7 +114,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 
             if (ModelState.IsValid)
             {
-                // List<User> categories = new List<User>();  // Tek bir tane Kullanici güncelleneceği için List olarak tutmaya gerek yok.
+                // List<User> users = new List<User>();  // Tek bir tane Kullanici güncelleneceği için List olarak tutmaya gerek yok.
 
 
                 using (var httpClient = new HttpClient())

@@ -11,7 +11,7 @@ namespace Stok_Kontrol_API.Entities.Entities
     {
         public User()
         {
-            Siparişler = new List<Order>();
+            Siparisler = new List<Order>();
         }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,6 +23,6 @@ namespace Stok_Kontrol_API.Entities.Entities
         public Role Role { get; set; }
 
 
-        public virtual List<Order> Siparişler { get; set; }
+        public virtual List<Order> Siparisler { get; set; }
     }
 }

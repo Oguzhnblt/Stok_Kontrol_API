@@ -25,6 +25,6 @@ namespace Stok_Kontrol_API.Entities.Entities
         public int SupplierID { get; set; }
         public virtual Supplier? Tedarikci { get; set; }
 
-        public virtual List<OrderDetails> SiparisDetayları { get; set; }
+        public virtual List<OrderDetails>? SiparisDetayları { get; set; }
     }
 }

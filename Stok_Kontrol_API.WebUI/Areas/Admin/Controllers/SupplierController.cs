@@ -78,7 +78,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
                         string apiCevap = await cevap.Content.ReadAsStringAsync();
 
                     }
-                } 
+                }
             }
             return RedirectToAction("Index");
         }

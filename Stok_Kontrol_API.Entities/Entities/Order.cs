@@ -21,6 +21,6 @@ namespace Stok_Kontrol_API.Entities.Entities
 
         // Navigation Properties
         public virtual User Kullanıcı { get; set; }
-        public virtual List<OrderDetails> SiparisDetayları { get; set; }
+        public virtual List<OrderDetails>? SiparisDetayları { get; set; }
     }
 }

@@ -32,11 +32,11 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> UrunAktifleştir(int id)
+        public async Task<IActionResult> UrunAktiflestir(int id)
         {
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Product/UrunAktifleştir/{id}"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Product/UrunAktiflestir/{id}"))
                 {
 
                 }
@@ -83,8 +83,8 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 
 
 
-            ViewBag["AktifKategoriler"] = new SelectList(aktifKategoriler, "ID", "CategoryName");
-            ViewBag["AktifTedarikciler"] = new SelectList(aktifTedarikciler, "ID", "SupplierName");
+            ViewBag.AktifKategoriler = new SelectList(aktifKategoriler, "ID", "CategoryName");
+            ViewBag.AktifTedarikciler = new SelectList(aktifTedarikciler, "ID", "SupplierName");
 
             return View(); // Sadece ekleme View'ını gösterecek.
         }
@@ -141,6 +141,10 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 
 
             }
+
+            ViewBag.AktifKategoriler = new SelectList(aktifKategoriler, "ID", "CategoryName");
+            ViewBag.AktifTedarikciler = new SelectList(aktifTedarikciler, "ID", "SupplierName");
+
             return View(updatedProduct); // Update edilecek Urunyi güncelleme View'ına gösterecek.
         }
 

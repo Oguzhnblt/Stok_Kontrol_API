@@ -30,11 +30,11 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> KategoriAktifleştir(int id)
+        public async Task<IActionResult> KategoriAktiflestir(int id)
         {
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Category/KategoriAktifleştir/{id}"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Category/KategoriAktiflestir/{id}"))
                 {
 
                 }
@@ -130,7 +130,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
                 }
             }
             return RedirectToAction("Index");
-            
+
         }
     }
 }

@@ -9,7 +9,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-header">
-                <strong class="card-title">Data Table</strong>
+                <strong class="card-title">Tedarikçi Tablosu</strong>
             </div>
             <div class="card-body">
                 <div class="col-lg-12">
@@ -20,64 +20,14 @@
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
 
-                                        <a class="nav-item nav-link active" id="custom-nav-active-suppliers-tab" data-toggle="tab" href="custom-nav-active-suppliers" role="tab" aria-controls="custom-nav-active-suppliers" aria-selected="true">Aktif Tedarikçiler</a>
+                                        <a class="nav-item nav-link active" id="custom-nav-all-suppliers-tab" data-toggle="tab" href="custom-nav-all-suppliers" role="tab" aria-controls="custom-nav-all-suppliers" aria-selected="true">Aktif Tedarikçiler</a>
 
-                                        <a class="nav-item nav-link" id="custom-nav-all-suppliers-tab" data-toggle="tab" href="custom-nav-all-suppliers" role="tab" aria-controls="custom-nav-all-suppliers" aria-selected="false">Tüm Tedarikçiler</a>
+                                        <a class="nav-item nav-link" id="custom-nav-active-suppliers-tab" data-toggle="tab" href="custom-nav-active-suppliers" role="tab" aria-controls="custom-nav-active-suppliers" aria-selected="false">Tüm Tedarikçiler</a>
 
                                     </div>
                                 </nav>
                                 <div class="tab-content pl-3 pt-2" id="nav-tabContent">
-                                    <div class="tab-pane fade show active" id="custom-active-suppliers" role="tabpanel" aria-labelledby="custom-nav-active-suppliers-tab">
-                                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                                            <thead>
-                                                <tr>
-                                                    <th>Tedarikci Adı</th>
-                                                    <th>Adresi</th>
-                                                    <th>Telefonu</th>
-                                                    <th>E-mail</th>
-                                                    <th>Durumu</th>
-                                                    <th>İşlemler</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (Supplier item in Model)
-                                                {
-                                                    @if (item.isActive)
-                                                    {
-
-                                                        <tr>
-                                                            <td>@item.SupplierName</td>
-                                                            <td>@item.Address</td>
-                                                            <td>@item.Phone</td>
-                                                            <td>@item.Email</td>
-                                                            <td>
-                                                                @if (item.isActive)
-                                                                {
-                                                                    <span>Aktif</span>
-                                                                }
-                                                                else
-                                                                {
-                                                                    <span>Pasif</span>
-                                                                }
-                                                            </td>
-                                                            <td>
-                                                                <a asp-controller="Supplier" asp-action="TedarikciSil" asp-route-id="@item.ID" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i>&nbsp; Sil</a>
-                                                                <a asp-controller="Supplier" asp-action="TedarikciGuncelle" asp-route-id="@item.ID" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i>&nbsp; Güncelle</a>
-
-                                                            </td>
-                                                        </tr>
-
-
-
-                                                    }
-
-                                                }
-
-
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                    <div class="tab-pane fade" id="custom-all-suppliers" role="tabpanel" aria-labelledby="custom-nav-suppliers-tab">
+                                    <div class="tab-pane fade show active" id="custom-nav-all-suppliers-tab" role="tabpanel" aria-labelledby="custom-nav-all-suppliers-tab">
                                         <table id="bootstrap-data-table" class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
@@ -112,22 +62,62 @@
                                                         <td>
                                                             @if (item.isActive)
                                                             {
-                                                                <a asp-controller="Supplier" asp-action="TedarikciSil" asp-route-id="@item.ID" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>&nbsp; Sil</a>
+                                                                <a asp-controller="Supplier" asp-action="TedarikciSil" asp-route-id="@item.ID" asp-area="Admin" class="btn btn-danger btn-sm"><i class="fa fa-check-square"></i>&nbsp; Sil</a>
                                                             }
                                                             else
                                                             {
-                                                                <a asp-controller="Supplier" asp-action="TedarikciAktiflestir" asp-route-id="@item.ID" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i>&nbsp; Aktif Et</a>
+                                                                <a asp-controller="Supplier" asp-action="TedarikciAktiflestir" asp-route-id="@item.ID" asp-area="Admin"class="btn btn-success btn-sm"><i class="fa fa-check-square"></i>&nbsp; Aktif Et</a>
                                                             }
 
-                                                            <a asp-controller="Supplier" asp-action="TedarikciGuncelle" asp-route-id="@item.ID" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i>&nbsp; Güncelle</a>
-
+                                                            <a asp-controller="Supplier" asp-action="TedarikciGuncelle" asp-route-id="@item.ID" asp-area="Admin" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i>&nbsp; Güncelle</a>
 
                                                         </td>
                                                     </tr>
-
                                                 }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="tab-pane fade" id="custom-nav-active-suppliers-tab" role="tabpanel" aria-labelledby="custom-nav-active-suppliers-tab">
+                                        <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tedarikci Adı</th>
+                                                    <th>Adresi</th>
+                                                    <th>Telefonu</th>
+                                                    <th>E-mail</th>
+                                                    <th>Durumu</th>
+                                                    <th>İşlemler</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (Supplier item in Model)
+                                                {
 
+                                                    @if (item.isActive)
+                                                    {
+                                                        <tr>
+                                                            <td>@item.SupplierName</td>
+                                                            <td>@item.Address</td>
+                                                            <td>@item.Phone</td>
+                                                            <td>@item.Email</td>
+                                                            <td>
+                                                                @if (item.isActive)
+                                                                {
+                                                                    <span>Aktif</span>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>Pasif</span>
+                                                                }
+                                                            </td>
+                                                            <td>
+                                                                <a asp-controller="Supplier" asp-action="TedarikciSil" asp-route-id="@item.ID" asp-area="Admin" class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i>&nbsp; Sil</a>
 
+                                                                <a asp-controller="Supplier" asp-action="TedarikciGuncelle" asp-route-id="@item.ID" asp-area="Admin" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i>&nbsp; Güncelle</a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
                                             </tbody>
                                         </table>
                                     </div>
@@ -144,7 +134,6 @@
 </div>
 @section Css{
     <link rel="stylesheet" href="~/template/assets/css/lib/datatable/dataTables.bootstrap.min.css">
-
     }
 @section Scripts{
 
@@ -158,7 +147,5 @@
             $('#bootstrap-data-table-export').DataTable();
         });
     </script>
-
-
     }
 
