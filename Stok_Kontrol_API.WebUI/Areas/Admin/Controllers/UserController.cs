@@ -112,24 +112,23 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> KullaniciGuncelle(User currentUser) // Güncellenmiş Kullanici parametre olarak alınır.
         {
 
-            if (ModelState.IsValid)
+            // List<User> users = new List<User>();  // Tek bir tane Kullanici güncelleneceği için List olarak tutmaya gerek yok.
+
+
+            using (var httpClient = new HttpClient())
             {
-                // List<User> users = new List<User>();  // Tek bir tane Kullanici güncelleneceği için List olarak tutmaya gerek yok.
+                currentUser.isActive = true;
+                currentUser.AddedDate = DateTime.Now;
+                currentUser.Password = updatedUser.Password;
 
+                StringContent content = new StringContent(JsonConvert.SerializeObject(currentUser), Encoding.UTF8, "application/json");
 
-                using (var httpClient = new HttpClient())
+                using (var cevap = await httpClient.PutAsync($"{uri}/api/User/KullaniciGuncelle/{currentUser.ID}", content))
                 {
-                    currentUser.isActive = true;
-                    currentUser.AddedDate = DateTime.Now;
-
-                    StringContent content = new StringContent(JsonConvert.SerializeObject(currentUser), Encoding.UTF8, "application/json");
-
-                    using (var cevap = await httpClient.PutAsync($"{uri}/api/User/KullaniciGuncelle/{currentUser.ID}", content))
-                    {
-                        string apiCevap = await cevap.Content.ReadAsStringAsync();
-                    }
+                    string apiCevap = await cevap.Content.ReadAsStringAsync();
                 }
             }
+
             return RedirectToAction("Index");
 
         }
