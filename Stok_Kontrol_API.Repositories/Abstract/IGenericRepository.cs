@@ -1,10 +1,5 @@
 ﻿using Stok_Kontrol_API.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StokKontrolProject.Repositories.Abstract
 {
@@ -17,6 +12,8 @@ namespace StokKontrolProject.Repositories.Abstract
         bool Remove(int id);
         bool RemoveAll(Expression<Func<T, bool>> exp);
         T GetByID(int id);
+        IQueryable<T> GetByID(int id, params Expression<Func<T, object>>[] includes);
+
         T GetByDefault(Expression<Func<T, bool>> exp);
         List<T> GetActive();
         IQueryable<T> GetActive(params Expression<Func<T, object>>[] includes);

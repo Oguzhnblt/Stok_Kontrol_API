@@ -1,10 +1,5 @@
 ﻿using Stok_Kontrol_API.Entities.Enums;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stok_Kontrol_API.Entities.Entities
 {
@@ -20,7 +15,7 @@ namespace Stok_Kontrol_API.Entities.Entities
 
 
         // Navigation Properties
-        public virtual User Kullanıcı { get; set; }
-        public virtual List<OrderDetails>? SiparisDetayları { get; set; }
+        public virtual User? Kullanıcı { get; set; }
+        public virtual List<OrderDetails> SiparisDetayları { get; set; }
     }
 }

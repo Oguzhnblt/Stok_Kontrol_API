@@ -83,7 +83,7 @@ namespace Stok_Kontrol_API.Controllers
 
             try
             {
-                
+
                 service.Remove(supplier);
                 return Ok("Tedarikçi silindi!");
             }

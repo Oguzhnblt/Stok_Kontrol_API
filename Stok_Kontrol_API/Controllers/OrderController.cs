@@ -24,41 +24,12 @@ namespace Stok_Kontrol_API.Controllers
 
         // TODO : OrderController içerisinde sepetten siparişi tamamlanan ürünler için DB'de sipariş kaydı ve siparişin detaylarını oluşturun. Siparişin durumuna göre (Bekliyor, Onaylandı, Reddedildi gibi). Stoktan ilgili üründen ilgili adet kadar düşürelecek Action Method yazın.
 
-        [HttpPost]
-        public IActionResult SiparisEkle(int userID, [FromQuery] int[] productIDs, [FromQuery] short[] quantities)
-        {
-            Order yeniSiparis = new Order();
-            yeniSiparis.UserID = userID;
-            yeniSiparis.Status = Status.Pending;
-            yeniSiparis.isActive = true;
-
-            orderService.Add(yeniSiparis); // DB'ye eklendiğinde ID oluşuyor.
-
-            //foreach (var item in productIDs) // int[] productIDs = new int{1,2,3,12,5}
-            //{
-            //}
-
-            for (int i = 0; i < productIDs.Length; i++)
-            {
-                OrderDetails yeniDetay = new OrderDetails();
-                yeniDetay.OrderID = yeniSiparis.ID;
-                yeniDetay.ProductID = productIDs[i];
-                yeniDetay.Quantity = quantities[i];
-                yeniDetay.UnitPrice = productService.GetByID(productIDs[i]).UnitPrice;
-                yeniDetay.isActive = true;
-
-                odService.Add(yeniDetay);
-            }
-
-            return Ok(yeniSiparis);
-
-        }
 
         // GET: api/Supplier
         [HttpGet]
         public IActionResult TumSiparisleriGetir()
         {
-            return Ok(orderService.GetAll());
+            return Ok(orderService.GetAll(x => x.SiparisDetayları, y => y.Kullanıcı));
         }
         [HttpGet]
         public IActionResult AktifSiparisleriGetir()
@@ -70,7 +41,7 @@ namespace Stok_Kontrol_API.Controllers
         [HttpGet("{id}")]
         public IActionResult IDyeGoreSiparisGetir(int id)
         {
-            return Ok(orderService.GetByID(id));
+            return Ok(orderService.GetByID(id, x => x.SiparisDetayları, y => y.Kullanıcı));
 
         }
 

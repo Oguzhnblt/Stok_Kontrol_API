@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Stok_Kontrol_API.Entities.Entities;
-using Stok_Kontrol_API.Entities.Enums;
-using System.Text;
 
 namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 {
@@ -16,75 +14,33 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            List<Order> Orders = new List<Order>();
+            List<Order> orders = new List<Order>();
+
             using (var httpClient = new HttpClient())
             {
                 using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/TumSiparisleriGetir"))
                 {
                     string apiCevap = await cevap.Content.ReadAsStringAsync();
 
-                    Orders = JsonConvert.DeserializeObject<List<Order>>(apiCevap);
+                    orders = JsonConvert.DeserializeObject<List<Order>>(apiCevap);
                 }
             }
-            return View(Orders);
+            return View(orders);
         }
-
-
-
 
         [HttpGet]
-        public async Task<IActionResult> SiparisEkle()
+        public async Task<IActionResult> SiparisDetayiGor(int id)
         {
-
-            List<Category> aktifKategoriler = new List<Category>();
-            List<Supplier> aktifTedarikciler = new List<Supplier>();
-
+            List<Order> order = new List<Order>();
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/AktifKullaniciGetir"))
+                using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/IDyeGoreSiparisGetir/{id}"))
                 {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
-                    aktifKategoriler = JsonConvert.DeserializeObject<List<Category>>(apiCevap);
-                }
-
-                using (var cevap = await httpClient.GetAsync($"{uri}/api/Order/AktifTedarikcileriGetir"))
-                {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
-                    aktifTedarikciler = JsonConvert.DeserializeObject<List<Supplier>>(apiCevap);
+                    string apicevap = await cevap.Content.ReadAsStringAsync();
+                    order = JsonConvert.DeserializeObject<List<Order>>(apicevap);
                 }
             }
-
-
-
-            ViewBag.AktifKategoriler = aktifKategoriler;
-            ViewBag.AktifTedarikciler = aktifTedarikciler;
-
-            return View(); // Sadece ekleme View'ını gösterecek.
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SiparisEkle(Order order)
-        {
-
-            Order receivedOrder = new Order();
-
-            using (var httpClient = new HttpClient())
-            {
-                var comtents = new MultipartFormDataContent
-                {
-                    { new StringContent(order.UserID.ToString()), "Id" },
-                    { new StringContent(order.SiparisDetayları.ToString()) ,"Sipariş Detayları" },
-                    { new StringContent(order.Kullanıcı.ID.ToString()), "Id" },
-                    { new StringContent(order.Kullanıcı.ID.ToString()), "Id" }
-                };
-
-                using (var cevap = await httpClient.PutAsync($"{uri}/api/Order/SiparisEkle", comtents))
-                {
-                    string apiCevap = await cevap.Content.ReadAsStringAsync();
-
-                }
-            }
-            return RedirectToAction("Index");
+            return View(order);
         }
 
         [HttpGet]
@@ -102,19 +58,20 @@ namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
 
 
 
-        public async Task<IActionResult> SiparisReddet(int id)
+
+
+
+        public async Task<IActionResult> SiparisSil(int id)
         {
             using (var httpClient = new HttpClient())
             {
-                using (var cevap = await httpClient.DeleteAsync($"{uri}/api/Order/SiparisReddet/{id}"))
+                using (var cevap = await httpClient.DeleteAsync($"{uri}/api/Order/SiparisSil/{id}"))
                 {
 
                 }
             }
             return RedirectToAction("Index");
         }
-
-
 
     }
 }

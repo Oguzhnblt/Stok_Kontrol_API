@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "SiparisDetayiGor";
+}
+@model List<Order>
+
+<div class="row">
+    <div class="offset-3 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title"@*>@Model.ID*@ Numaraılı Sipariş Detayı</strong>
+            </div>
+            <div class="card-body">
+                <div id="pay-invoice">
+                    <div class="card-body">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <strong class="card-title"@*>@Model.ID*@ Numaralı Sipariş Detayı</strong>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">Ürün</th>
+                                                <th scope="col">Adet</th>
+                                                <th scope="col">Birim Fiyat</th>
+                                                <th scope="col">Fiyat</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                @for (int i = 1; i < item.SiparisDetayları.Count + 1; i++)
+                                                {
+                                                    <tr>
+                                                        <th scope="row">@i</th>
+@*                                                        <td>item.SiparisDetayları[i-1]</td>
+*@                                                        <td>item.SiparisDetayları[i-1].Quantity</td>
+                                                        <td>item.SiparisDetayları[i-1].UnitPrice</td>
+                                                        <td>
+                                                            @{
+                                                                decimal tutar = (item.SiparisDetayları[i - 1].Quantity * item.SiparisDetayları[i - 1].UnitPrice);
+                                                                <span>Tutar</span>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div>
+
+</div>

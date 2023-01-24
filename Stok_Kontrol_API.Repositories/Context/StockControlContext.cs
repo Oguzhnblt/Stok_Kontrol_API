@@ -1,10 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Stok_Kontrol_API.Entities.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Stok_Kontrol_API.Repositories.Context
 {

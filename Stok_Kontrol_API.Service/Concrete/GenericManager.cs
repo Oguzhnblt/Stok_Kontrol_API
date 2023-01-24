@@ -73,6 +73,11 @@ namespace Stok_Kontrol_API.Service.Concrete
             return repository.GetByID(id);
         }
 
+        public IQueryable<T> GetByID(int id, params Expression<Func<T, object>>[] includes)
+        {
+            return repository.GetByID(id, includes);
+        }
+
         public List<T> GetDefault(Expression<Func<T, bool>> exp)
         {
             return repository.GetDefault(exp);
