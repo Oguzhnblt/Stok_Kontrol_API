@@ -1,6 +1,9 @@
 ﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
+builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSession(option => option.IdleTimeout = TimeSpan.FromHours(1));
 
 var app = builder.Build();
 
@@ -13,11 +16,14 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseSession();
+
 
 app.MapControllerRoute(
 

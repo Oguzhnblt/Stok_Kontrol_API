@@ -71,7 +71,6 @@
         #cellPaiChart {
             height: 160px;
         }
-
     </style>
 </head>
 
@@ -85,14 +84,21 @@
                         <a asp-controller="Home" asp-action="Index"><i class="menu-icon fa fa-laptop"></i>Anasayfa </a>
                     </li>
                     <li class="menu-title">Operasyonlar</li><!-- /.menu-title -->
-                    
+
                     <li class="menu-item-has-children dropdown">
 
                         <!--Ürünler-->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Ürünler</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a asp-controller="Home" asp-action="Index">Ürünleri Listele</a></li>
-                            <li><i class="fa fa-id-badge"></i><a asp-controller="Home" asp-action="UrunEkle">Ürün Ekle</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a asp-controller="Product" asp-action="Index">Ürünleri Listele</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children dropdown">
+
+                        <!--Siparişler-->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-cogs"></i>Siparişler</a>
+                        <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-puzzle-piece"></i><a asp-controller="Order" asp-action="Index">Siparişleri Listele</a></li>
                         </ul>
                     </li>
                 </ul>

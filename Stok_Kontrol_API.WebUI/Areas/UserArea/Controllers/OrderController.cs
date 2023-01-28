@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 using Stok_Kontrol_API.Entities.Entities;
 using System.Net.Http;
 
-namespace Stok_Kontrol_API.WebUI.Areas.Admin.Controllers
+namespace Stok_Kontrol_API.WebUI.Areas.UserArea.Controllers
 {
-    [Area("Admin")]
+    [Area("UserArea")]
 
     public class OrderController : Controller
     {
