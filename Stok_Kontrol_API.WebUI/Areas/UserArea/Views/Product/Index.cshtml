@@ -50,7 +50,7 @@
                                                     <td>@item.Kategori.CategoryName</td>
                                                     <td>@item.Tedarikci.SupplierName</td>
                                                     <td>
-                                                        <a asp-controller="CartController" asp-action="SepeteEkle" asp-route-id="@item.ID" asp-area="UserArea" class="btn btn-success btn-sm"><i class="fa fa-shopping-cart"></i>&nbsp; Sepete Ekle</a>
+                                                        <a href="javascript:void(0)" id="btnAddCart" val="@item.ID" class="btn btn-success btn-sm"><i class="fa fa-shopping-cart"></i>&nbsp; Sepete Ekle</a>
                                                     </td>
                                                 </tr>
 
@@ -87,7 +87,30 @@
             $('#bootstrap-data-table-export').DataTable();
         });
     </script>
-
-
     }
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#btnAddCart").click(function () {
+
+            var id = $(this).attr("val");
+
+            $.ajax({
+                type: "POST",
+                dataType: "JSON",
+                url: "@Url.Action("Add","Cart")/" + id,   // Normal bildiğimiz Action helper metodu gibi çalışır.
+                success: function (data) {
+
+                }
+            });
+
+        })
+    })
+
+
+
+</script>
 

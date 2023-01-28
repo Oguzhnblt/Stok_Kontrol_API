@@ -6,6 +6,7 @@ using Stok_Kontrol_API.WebUI.Areas.UserArea.Models;
 
 namespace Stok_Kontrol_API.WebUI.Areas.UserArea.Controllers
 {
+    [Area("UserArea")]
     public class CartController : Controller
     {
         public IActionResult Index()
@@ -36,7 +37,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.UserArea.Controllers
         }
 
 
-        [HttpPost]
+        //[HttpPost]
         public async Task<JsonResult> Add(int id)
         {
             string uri = "https://localhost:7233";
@@ -106,7 +107,7 @@ namespace Stok_Kontrol_API.WebUI.Areas.UserArea.Controllers
             if (SessionHelper.GetObjectFromJson<ProductCart>(HttpContext.Session, "sepet") != null)
             {
                 ProductCart cart = SessionHelper.GetObjectFromJson<ProductCart>(HttpContext.Session, "sepet");
-                cart.İncreaseCart(id); // Var olan ürünün miktarını arttır.
+                cart.IncreaseCart(id); // Var olan ürünün miktarını arttır.
 
                 SessionHelper.SetObjectAsJson(HttpContext.Session, "sepet", cart);
 

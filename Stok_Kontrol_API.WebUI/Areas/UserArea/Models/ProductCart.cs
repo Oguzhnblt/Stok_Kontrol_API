@@ -1,4 +1,6 @@
-﻿namespace Stok_Kontrol_API.WebUI.Areas.UserArea.Models
+﻿using Stok_Kontrol_API.Entities.Entities;
+
+namespace Stok_Kontrol_API.WebUI.Areas.UserArea.Models
 {
     public class ProductCart
     {
@@ -54,7 +56,7 @@
 
 
         // SEPET MİKTARI ARTTIR
-        public void İncreaseCart(int productID)
+        public void IncreaseCart(int productID)
         {
             _cart[productID].Quantity++; // İlgili ürünün miktarını sepette bir arttır.
 
