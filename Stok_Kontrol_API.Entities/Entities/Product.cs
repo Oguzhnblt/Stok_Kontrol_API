@@ -4,6 +4,13 @@ namespace Stok_Kontrol_API.Entities.Entities
 {
     public class Product : BaseEntity
     {
+        private OrderDetails OrderDetails;
+
+        public Product()
+
+        {
+            SiparisDetaylari = new List<OrderDetails>();
+        }
         public string ProductName { get; set; }
         public decimal UnitPrice { get; set; }
         public short? Stock { get; set; }
@@ -20,6 +27,6 @@ namespace Stok_Kontrol_API.Entities.Entities
         public int SupplierID { get; set; }
         public virtual Supplier? Tedarikci { get; set; }
 
-        public virtual List<OrderDetails>? SiparisDetayları { get; set; }
+        public virtual List<OrderDetails>? SiparisDetaylari { get; set; }
     }
 }

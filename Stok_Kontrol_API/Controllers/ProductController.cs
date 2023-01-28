@@ -20,12 +20,17 @@ namespace Stok_Kontrol_API.Controllers
         [HttpGet]
         public IActionResult TumUrunleriGetir()
         {
+
+
             return Ok(service.GetAll(t0 => t0.Kategori, t1 => t1.Tedarikci));
+
         }
         [HttpGet]
         public IActionResult AktifUrunleriGetir()
         {
+
             return Ok(service.GetActive(t0 => t0.Kategori, t1 => t1.Tedarikci));
+
         }
 
         // GET: api/Product/5

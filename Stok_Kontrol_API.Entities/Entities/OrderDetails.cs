@@ -4,16 +4,17 @@ namespace Stok_Kontrol_API.Entities.Entities
 {
     public class OrderDetails : BaseEntity
     {
-        [ForeignKey("Sipariş")]
+        [ForeignKey("Siparis")]
         public int OrderID { get; set; }
 
-        [ForeignKey("Ürün")]
+        [ForeignKey("Urun")]
         public int ProductID { get; set; }
 
         public decimal UnitPrice { get; set; }
         public short Quantity { get; set; }
 
-        public virtual Order Sipariş { get; set; }
-        public virtual Product Ürün { get; set; }
+        public virtual Order Siparis { get; set; }
+        public virtual Product Urun { get; set; }
+
     }
 }

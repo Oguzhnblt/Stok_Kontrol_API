@@ -4,7 +4,9 @@ namespace Stok_Kontrol_API.Entities.Entities
 {
     public class User : BaseEntity
     {
+
         public User()
+
         {
             Siparisler = new List<Order>();
         }

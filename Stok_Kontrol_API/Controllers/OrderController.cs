@@ -29,7 +29,7 @@ namespace Stok_Kontrol_API.Controllers
         [HttpGet]
         public IActionResult TumSiparisleriGetir()
         {
-            return Ok(orderService.GetAll(x => x.SiparisDetayları, y => y.Kullanıcı));
+            return Ok(orderService.GetAll(x => x.SiparisDetaylari, y => y.Kullanıcı));
         }
         [HttpGet]
         public IActionResult AktifSiparisleriGetir()
@@ -41,7 +41,7 @@ namespace Stok_Kontrol_API.Controllers
         [HttpGet("{id}")]
         public IActionResult IDyeGoreSiparisGetir(int id)
         {
-            return Ok(orderService.GetByID(id, x => x.SiparisDetayları, y => y.Kullanıcı));
+            return Ok(orderService.GetByID(id, x => x.SiparisDetaylari, y => y.Kullanıcı));
 
         }
 
@@ -84,13 +84,12 @@ namespace Stok_Kontrol_API.Controllers
                 }
 
                 confirmedOrder.Status = Status.Confirmed;
-                confirmedOrder.isActive = false;
                 orderService.Update(confirmedOrder);
 
                 return Ok(confirmedOrder);
             }
         }
-        [HttpGet("{id}")]
+        [HttpDelete("{id}")]
         public IActionResult SiparisReddet(int id)
         {
             Order cancelledOrder = orderService.GetByID(id);
@@ -101,7 +100,6 @@ namespace Stok_Kontrol_API.Controllers
             else
             {
                 cancelledOrder.Status = Status.Cancelled;
-                cancelledOrder.isActive = false;
                 orderService.Update(cancelledOrder);
 
                 return Ok(cancelledOrder);

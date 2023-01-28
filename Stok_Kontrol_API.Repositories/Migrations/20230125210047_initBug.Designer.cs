@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Stok_Kontrol_API.Repositories.Context;
 
@@ -11,9 +12,10 @@ using Stok_Kontrol_API.Repositories.Context;
 namespace Stok_Kontrol_API.Repositories.Migrations
 {
     [DbContext(typeof(StockControlContext))]
-    partial class StockControlContextModelSnapshot : ModelSnapshot
+    [Migration("20230125210047_initBug")]
+    partial class initBug
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

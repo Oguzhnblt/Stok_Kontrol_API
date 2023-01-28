@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "UrunEkle";
+}
+@model Product
+<div class="row">
+    <div class="offset-3 col-lg-6">
+        <div class="card">
+            <div class="card-header">
+                <strong class="card-title">Credit Card</strong>
+            </div>
+            <div class="card-body">
+                <!-- Credit Card -->
+                <div id="pay-invoice">
+                    <div class="card-body">
+
+                        <form asp-area="SupplierArea" asp-controller="Home" asp-action="UrunEkle" method="post" novalidate="novalidate">
+
+                            <div class="form-group">
+                                <label asp-for="ProductName" class="control-label mb-1">Urun Adı</label>
+                                <input asp-for="ProductName" type="text" class="form-control">
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="UnitPrice" class="control-label mb-1">Birim Fiyatı</label>
+                                <input asp-for="UnitPrice" type="text" class="form-control">
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="Stock" class="control-label mb-1">Stok Adedi</label>
+                                <input asp-for="Stock" type="text" class="form-control">
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="ExpireDate" class="control-label mb-1">Son Kullanma Tarihi</label>
+                                <input asp-for="ExpireDate" type="date" class="form-control">
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="CategoryID" class="control-label mb-1">Kategori</label>
+
+                                <select asp-for="CategoryID" asp-items="@ViewBag.AktifKategoriler" class="form-control">
+                                    <option>Lütfen Kategori Seçiniz...</option>
+                                </select>
+
+                            </div>
+                            <div class="form-group has-success">
+                                <label asp-for="SupplierID" class="control-label mb-1">Tedarikçi</label>
+
+                                <input type="hidden" value="1" asp-for="SupplierID" />
+                                @*<input type="hidden" value="@Context.User.FindFirst("ID").Value"" asp-for="SupplierID"  />*@
+                            </div>
+
+
+                            <div>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <i class="fa fa-plus-square-o fa-lg"></i>&nbsp;
+                                    <span id="payment-button-amount">Urun Ekle</span>
+                                    <span id="payment-button-sending" style="display:none;">Ekleniyor…</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div> <!-- .card -->
+
+    </div>
+
+</div>

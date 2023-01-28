@@ -39,6 +39,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\UserArea\Controllers\" />
+    <Folder Include="Areas\UserArea\Data\" />
+    <Folder Include="Areas\UserArea\Models\" />
+    <Folder Include="Areas\UserArea\Views\" />
   </ItemGroup>
 
 </Project>

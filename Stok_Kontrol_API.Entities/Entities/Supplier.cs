@@ -2,7 +2,9 @@
 {
     public class Supplier : BaseEntity
     {
+
         public Supplier()
+
         {
             Urunler = new List<Product>();
         }
